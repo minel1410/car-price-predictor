@@ -46,19 +46,19 @@ const ModelSelect = () => {
       .then((response) => {
         const brandModelData = response.data;
 
-        // Dobijanje imena brendova i transformacija podataka
+
         const transformedBrands = brandModelData.map((brand) => ({
           id: brand.brand_id,
           name: brand.models[0]?.brand_name || "Unknown Brand",
         }));
 
-        // Sortiranje brendova abecednim redom
+
         transformedBrands.sort((a, b) => a.name.localeCompare(b.name));
 
         setBrands(transformedBrands);
         setBrandModelData(brandModelData);
 
-        // Postavljanje modela za prvi brend kao inicijalne modele i sortiranje abecednim redom
+
         if (transformedBrands.length > 0) {
           setSelectedBrand(transformedBrands[0].id);
           setFormData({ ...formData, brand_enc: transformedBrands[0].id });
@@ -82,7 +82,7 @@ const ModelSelect = () => {
     setSelectedBrand(selectedBrandId);
     setFormData({ ...formData, brand_enc: parseInt(selectedBrandId) });
 
-    // Filtriranje modela na osnovu izabranog brenda i sortiranje abecednim redom
+
     const filteredModels = brandModelData.find(brand => brand.brand_id === parseInt(selectedBrandId)).models;
     filteredModels.sort((a, b) => a.model_name.localeCompare(b.model_name));
     setModels(filteredModels || []);
@@ -113,7 +113,7 @@ const ModelSelect = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Provjerite ispravnost formData
+
     console.log("Submitting form data:", formData);
 
     axios
@@ -127,12 +127,12 @@ const ModelSelect = () => {
         }
       )
       .then((response) => {
-        // Ispišite odgovor za debugiranje
+
         console.log("Form submitted successfully:", response.data);
         setCarValue(response.data.prediction);
       })
       .catch((error) => {
-        // Ispišite detaljne informacije o grešci
+
         console.error(
           "Error submitting form:",
           error.response ? error.response.data : error.message
@@ -142,29 +142,71 @@ const ModelSelect = () => {
 
 
   return (
-    <div className="px-14 md:px-32 py-16">
+    <div className="px-14 md:px-32 py-4 bg-[#111827]">
+      <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-center md:text-5xl lg:text-6xl text-white">
+        Car Price Predictor
+      </h1>
+      <p class="mb-6 text-lg font-normal lg:text-xl sm:px-16 xl:px-48 text-gray-400 text-center">
+        Enter the required details to get the recommended car price.
+      </p>
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-
-        <label htmlFor="brand">Select Brand:</label>
-        <select id="brand" value={selectedBrand} onChange={handleBrandChange}>
-          <option value="">-- Select Brand --</option>
-          {brands.map(brand => (
-            <option key={brand.id} value={brand.id}>{brand.name}</option>
+        <label htmlFor="brand" className="block text-sm font-medium text-white">
+          Select Brand:
+        </label>
+        <select
+          id="brand"
+          value={selectedBrand}
+          onChange={handleBrandChange}
+          className="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+        >
+          <option value="">Select Brand</option>
+          {brands.map((brand) => (
+            <option key={brand.id} value={brand.id}>
+              {brand.name}
+            </option>
           ))}
         </select>
 
-        <label htmlFor="model">Select Model:</label>
-        <select id="model" value={selectedModel} onChange={handleModelChange} disabled={!selectedBrand}>
-          <option value="">-- Select Model --</option>
-          {Array.isArray(models) && models.map(model => (
-            <option key={model.model_id} value={model.model_id}>{model.model_name}</option>
-          ))}
+        <label htmlFor="model" className="block text-sm font-medium text-white">
+          Select Model:
+        </label>
+        <select
+          id="model"
+          value={selectedModel}
+          onChange={handleModelChange}
+          disabled={!selectedBrand}
+          className='className="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"'
+        >
+          <option value="">Select Model</option>
+          {Array.isArray(models) &&
+            models.map((model) => (
+              <option key={model.model_id} value={model.model_id}>
+                {model.model_name}
+              </option>
+            ))}
         </select>
 
-        <label htmlFor="Mileage">Mileage:</label>
-        <input type="number" id="Mileage" name="Mileage" value={formData.Mileage} onChange={handleInputChange} />
+        <label
+          htmlFor="Mileage"
+          className="block text-sm font-medium text-white"
+        >
+          Mileage:
+        </label>
+        <input
+          type="number"
+          id="Mileage"
+          name="Mileage"
+          value={formData.Mileage}
+          onChange={handleInputChange}
+          className="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+        />
 
-        <label htmlFor="Engine_volume">Engine Volume:</label>
+        <label
+          htmlFor="Engine_volume"
+          className="block text-sm font-medium text-white "
+        >
+          Engine Volume:
+        </label>
         <input
           type="range"
           id="Engine_volume"
@@ -173,14 +215,29 @@ const ModelSelect = () => {
           max="6.5"
           step="0.1"
           value={formData.Engine_volume}
-          onChange={(event) => handleSliderChange(event, 'Engine_volume')}
+          onChange={(event) => handleSliderChange(event, "Engine_volume")}
+          className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-gray-700"
         />
-        <span>{formData.Engine_volume} L</span>
+        <span className="text-gray-200">{formData.Engine_volume} L</span>
 
-        <label htmlFor="Engine_power">Engine Power:</label>
-        <input type="number" id="Engine_power" name="Engine_power" value={formData.Engine_power} onChange={handleInputChange} />
+        <label
+          htmlFor="Engine_power"
+          className="block text-sm font-medium text-white"
+        >
+          Engine Power (kW):
+        </label>
+        <input
+          type="number"
+          id="Engine_power"
+          name="Engine_power"
+          value={formData.Engine_power}
+          onChange={handleInputChange}
+          className="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+        />
 
-        <label htmlFor="Year">Year:</label>
+        <label htmlFor="Year" className="block text-sm font-medium text-white ">
+          Year:
+        </label>
         <input
           type="range"
           id="Year"
@@ -189,45 +246,79 @@ const ModelSelect = () => {
           max={new Date().getFullYear()}
           step="1"
           value={formData.Year}
-          onChange={(event) => handleSliderChange(event, 'Year')}
+          onChange={(event) => handleSliderChange(event, "Year")}
+          className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-gray-700"
         />
-        <span>{formData.Year}</span>
+        <span className="text-gray-200">{formData.Year}</span>
 
-        <label htmlFor="body_enc">Body Type:</label>
-        <select id="body_enc" name="body_enc" value={formData.body_enc} onChange={handleInputChange}>
+        <label
+          htmlFor="body_enc"
+          className="block text-sm font-medium text-white "
+        >
+          Body Type:
+        </label>
+        <select
+          id="body_enc"
+          name="body_enc"
+          value={formData.body_enc}
+          onChange={handleInputChange}
+          className="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+        >
           <option value="">-- Select Body Type --</option>
           {Object.entries(bodyDict).map(([key, value]) => (
-            <option key={value} value={value}>{key}</option>
+            <option key={value} value={value}>
+              {key}
+            </option>
           ))}
         </select>
 
-        <label htmlFor="fuel_type_enc">Fuel Type:</label>
-        <select id="fuel_type_enc" name="fuel_type_enc" value={formData.fuel_type_enc} onChange={handleInputChange}>
-          <option value="">-- Select Fuel Type --</option>
+        <label
+          htmlFor="fuel_type_enc"
+          className="block text-sm font-medium text-white "
+        >
+          Fuel Type:
+        </label>
+        <select
+          id="fuel_type_enc"
+          name="fuel_type_enc"
+          value={formData.fuel_type_enc}
+          onChange={handleInputChange}
+          className="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+        >
+          <option value="">Select Fuel Type</option>
           {Object.entries(fuelDict).map(([key, value]) => (
-            <option key={value} value={value}>{key}</option>
+            <option key={value} value={value}>
+              {key}
+            </option>
           ))}
         </select>
-        <div className='flex gap-5'>
-          <label htmlFor="Registered">Registered:</label>
-        <input
-          type="checkbox"
-          id="Registered"
-          name="Registered"
-          checked={formData.Registered}
-          onChange={handleCheckboxChange}
-        />
-        </div>
-        
 
-        <button 
-        type="submit" 
-        className='w-full p-3 rounded-md text-white bg-blue-500'>
+        <div class="flex items-center space-x-2">
+          <input
+            className="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600"
+            type="checkbox"
+            id="Registered"
+            name="Registered"
+            checked={formData.Registered}
+            onChange={handleCheckboxChange}
+          />
+          <label htmlFor="Registered" className="text-white">
+            Registered
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          className="w-full p-3 rounded-md text-white bg-blue-500"
+        >
           Submit
         </button>
       </form>
-      {carValue && <p>Preporucena cijena automobila: {carValue}</p>}
-      
+      {carValue && (
+        <p className="border border-white rounded-lg bg-[#CCE5FF] text-[#004085] p-3 mt-4">
+          Recommended car price: <span className="font-bold">{carValue}</span>
+        </p>
+      )}
     </div>
   );
 };
