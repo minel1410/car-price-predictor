@@ -142,7 +142,7 @@ const ModelSelect = () => {
 
 
   return (
-    <div className="px-14 md:px-32 py-4 bg-[#111827]">
+    <div className="px-6 md:px-16 lg:px-32 py-4 bg-[#111827]">
       <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-center md:text-5xl lg:text-6xl text-white">
         Car Price Predictor
       </h1>
