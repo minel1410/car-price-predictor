@@ -2,11 +2,19 @@
 
 ## Overview
 
+<<<<<<< HEAD
 The **Car Price Predictor** is a frontend application built using Next.js. This application allows users to input detailed information about their car to receive a predicted price. The user provides data such as the year, model, brand, mileage, engine volume, engine power, body type, and fuel type of their car. 
+=======
+The **Car Price Predictor** is a frontend application built using Next.js. This application allows users to input detailed information about their car to receive a predicted price. The user provides data such as the year, model, brand, mileage, engine volume, engine power, body type, and fuel type of their car.
+>>>>>>> b0fdf98 (Add stylization)
 
 ## Features
 
 - **User Input Form**: Allows users to enter car details including:
+<<<<<<< HEAD
+=======
+
+>>>>>>> b0fdf98 (Add stylization)
   - **Brand**: Select from a dropdown list.
   - **Model**: Select from a dropdown list that updates based on the selected brand.
   - **Mileage**: Input in kilometers.
