@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import Loader from './Loader';
 
 const ModelSelect = () => {
   const [brands, setBrands] = useState([]);
@@ -10,6 +10,7 @@ const ModelSelect = () => {
   const [selectedModel, setSelectedModel] = useState('');
   const [brandModelData, setBrandModelData] = useState([]);
   const [carValue, setCarValue] = useState(null)
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const [formData, setFormData] = useState({
     Mileage: 0,
@@ -41,40 +42,39 @@ const ModelSelect = () => {
   };
 
   useEffect(() => {
-    axios
-      .get("https://price-predictor-model-api.onrender.com/models")
-      .then((response) => {
-        const brandModelData = response.data;
+      axios
+        .get("https://price-predictor-model-api.onrender.com/models")
+        .then((response) => {
+          const brandModelData = response.data;
 
+          const transformedBrands = brandModelData.map((brand) => ({
+            id: brand.brand_id,
+            name: brand.models[0]?.brand_name || "Unknown Brand",
+          }));
 
-        const transformedBrands = brandModelData.map((brand) => ({
-          id: brand.brand_id,
-          name: brand.models[0]?.brand_name || "Unknown Brand",
-        }));
+          transformedBrands.sort((a, b) => a.name.localeCompare(b.name));
 
+          setBrands(transformedBrands);
+          setBrandModelData(brandModelData);
 
-        transformedBrands.sort((a, b) => a.name.localeCompare(b.name));
-
-        setBrands(transformedBrands);
-        setBrandModelData(brandModelData);
-
-
-        if (transformedBrands.length > 0) {
-          setSelectedBrand(transformedBrands[0].id);
-          setFormData({ ...formData, brand_enc: transformedBrands[0].id });
-          const initialModels =
-            brandModelData.find(
-              (brand) => brand.brand_id === transformedBrands[0].id
-            ).models || [];
-          initialModels.sort((a, b) =>
-            a.model_name.localeCompare(b.model_name)
-          );
-          setModels(initialModels);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching models:", error);
-      });
+          if (transformedBrands.length > 0) {
+            setSelectedBrand(transformedBrands[0].id);
+            setFormData({ ...formData, brand_enc: transformedBrands[0].id });
+            const initialModels =
+              brandModelData.find(
+                (brand) => brand.brand_id === transformedBrands[0].id
+              ).models || [];
+            initialModels.sort((a, b) =>
+              a.model_name.localeCompare(b.model_name)
+            );
+            setModels(initialModels);
+            setTimeout(8000);
+            setIsLoaded(true);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching models:", error);
+        });
   }, []);
 
   const handleBrandChange = (event) => {
@@ -142,7 +142,9 @@ const ModelSelect = () => {
 
 
   return (
-    <div className="px-6 md:px-16 lg:px-32 py-4 bg-[#111827]">
+    <>
+    {isLoaded ? (
+      <div className="px-6 md:px-16 lg:px-32 py-4 bg-[#111827]">
       <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-center md:text-5xl lg:text-6xl text-white">
         Car Price Predictor
       </h1>
@@ -320,6 +322,11 @@ const ModelSelect = () => {
         </p>
       )}
     </div>
+    ) : (
+      <Loader/>
+    )}
+    </>
+    
   );
 };
 
