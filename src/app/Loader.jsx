@@ -14,18 +14,41 @@ export default function Loader() {
 
     const funFacts = [
       "Otprilike 80% svih automobila koji se prodaju u Bosni i Hercegovini su polovni, dok novih automobila čini samo 20% tržišta.",
-      "Najpopularniji brendovi polovnih automobila u BiH su Volkswagen, Audi, BMW, i Škoda, sa Volkswagenom često na vrhu liste zbog svoje pouzdanosti i dostupnosti delova.",
-      "Prosečna starost polovnog automobila u BiH je oko 15 godina, što je u velikoj meri rezultat niskog uvoza novih vozila i ekonomskih faktora koji utiču na kupovnu moć.",
-      "Prosečna cena polovnog automobila u BiH je oko 10.000 KM, mada cene mogu značajno varirati zavisno od brenda, modela, godine proizvodnje i stanja vozila.",
+      "Najpopularniji brendovi polovnih automobila u BiH su Volkswagen, Audi, BMW, i Škoda, sa Volkswagenom često na vrhu liste zbog svoje pouzdanosti i dostupnosti dijelova.",
+      "Prosečna starost polovnog automobila u BiH je oko 15 godina, što je u velikoj mjeri rezultat niskog uvoza novih vozila i ekonomskih faktora koji utiču na kupovnu moć.",
+      "Prosečna cijena polovnog automobila u BiH je oko 10.000 KM, mada cijene mogu značajno varirati zavisno od brenda, modela, godine proizvodnje i stanja vozila.",
       "Polovni automobili u BiH često imaju visoku kilometražu, sa prosečnim brojem pređenih kilometara od oko 200.000 km.",
-      "Automobili na dizel su i dalje veoma popularni u BiH zbog njihovih ekonomičnih prednosti u odnosu na benzinske motore, iako se interesovanje za vozila na LPG (plin) u poslednje vreme povećava.",
-      "Približno 40% kupaca polovnih automobila u BiH traži dodatne provere i izveštaje o stanju vozila pre kupovine, kako bi se izbegli skriveni problemi i oštećenja.",
+      "Automobili na dizel su i dalje veoma popularni u BiH zbog njihovih ekonomičnih prednosti u odnosu na benzinske motore, iako se interesovanje za vozila na LPG (plin) u posljednje vrijeme povećava.",
+      "Približno 40% kupaca polovnih automobila u BiH traži dodatne provjere i izvještaje o stanju vozila prije kupovine, kako bi se izbjegli skriveni problemi i oštećenja.",
+      "Bosna i Hercegovina je u 2022. godini izvezla $12.1M vrijednosti u automobilima što je stavlja na 77. mjesto najvećeg izvoznika na svijetu.",
+      "Bosna i Hercegovina je u 2022. godini uvezla $437M vrijednosti u automobilima što je stavlja na 94. mjesto najvećeg uvoznika.",
+      "Glavni uvoznici u BiH su Njemačka, Slovenija, Češka, Hrvatska i Francuska.",
+      "Glavne destinacije izvoza su: Njemačka, Švicarska, Slovenija, Crna Gora i, vjerovali ili ne, Kazahstan (oko $882k).",
+      "U BiH se na godišnjem nivou proda više od 50.000 polovnih vozila, što čini značajan dio tržišta automobilskih transakcija.",
+      "Bosna i Hercegovina ima više od 1.5 miliona registrovanih vozila, a broj svakodnevno raste s obzirom na porast broja stanovnika.",
+      "Prosečna godišnja potrošnja goriva po vozilu u BiH je oko 1.200 litara.",
+      "Zeleni automobili (električni i hibridni) i dalje čine samo manji dio tržišta u BiH, ali njihov broj polako raste.",
+      "U BiH postoji više od 500 različitih auto-servisa koji se bave popravkom i održavanjem vozila.",
+      "Najveći broj automobila u BiH je stariji od 10 godina, zbog niskog broja novih vozila koja ulaze na tržište.",
+      "Polovni automobili iz BiH najčešće se prodaju u zemljama EU, s posebnim interesovanjem iz Italije, Hrvatske i Austrije.",
+      "U BiH se najčešće prodaju automobili sa motorima zapremine od 1.6 do 2.0 litara, koji nude dobar balans između potrošnje i performansi.",
+      "Automobili na LPG plin postaju sve popularniji u BiH zbog nižih troškova goriva i ekoloških prednosti.",
+      "U BiH, 90% ljudi koji kupuju polovni automobil koriste neki oblik internetskog oglašavanja, kao što su sajtovi i društvene mreže.",
+      "Polovni automobili u BiH često se prodaju sa značajnim popustima u odnosu na početnu cijenu, što kupce privlači.",
+      "Polovni automobili u BiH često dolaze sa dodatnim opremama kao što su kožna sjedala, navigacijski sistemi i klimatske kontrole.",
+      "Prosečna dužina trajanja vlasništva polovnog automobila u BiH je 5 do 7 godina.",
+      "U BiH je najpopularnija kategorija vozila SUV, zbog svoje praktičnosti i pogodnosti za vožnju u različitim uslovima.",
+      "Bosna i Hercegovina bilježi konstantan rast u broju prodanih novih vozila, a električni automobili čine značajan postotak.",
+      "BiH ima razvijen tržišni sektor rezervnih dijelova, koji podržava veliki broj poljskih automobila koji su popularni na tržištu.",
+      "U BiH je zabilježen rast prodaje automobila sa pogonom na sva četiri točka, zbog povećanog interesa za vožnju po planinskim područjima.",
+      "Auto industrija u BiH ima značajan uticaj na lokalnu ekonomiju, zapošljavajući hiljade radnika u prodaji, servisu i distribuciji vozila.",
+      "U BiH, mnogi kupci polovnih automobila preferiraju vozila sa manualnim menjačem, iako su automatski menjači u porastu.",
     ];
 
     useEffect(() => {
       const intervalId = setInterval(() => {
         setFactIndex(getRandomIntBetween(0, funFacts.length - 1));
-      }, 1500);
+      }, 6000);
 
       return () => clearInterval(intervalId);
     }, []);
@@ -250,7 +273,7 @@ export default function Loader() {
             <path class="air" stroke="#E85725" d="M 28 28 h -27.5"></path>
           </g>
         </svg>
-        <p className="px-12 mb-36 text-md text-gray-200 md:text-lg">
+        <p className="px-12 mb-36 text-md text-gray-200 md:text-lg text-center font-semibold">
           {funFacts[factIndex]}
         </p>
       </div>
